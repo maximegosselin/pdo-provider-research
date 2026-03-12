@@ -58,7 +58,7 @@ calling `getConnection()` on the provider and storing the result, or calling it 
 |-------------------------------|------------------|
 | Connection with configuration | ✅ (lazy-connect) |
 | Connection from existing PDO  | ✅                |
-| Get underlying PDO            | ⚠️               |
+| Get underlying PDO            | ✅                |
 
 `ExtendedPdo` supports lazy-connect and extends `\PDO` directly, so it _is_ the PDO. `DecoratedPdo` wraps an existing
 `\PDO` but does not expose it; `getPdo()` is not available on `DecoratedPdo`, making the **Get underlying PDO**
@@ -107,11 +107,11 @@ connection management and cannot participate in a shared connection model.
 |-------------------------------|-----------|
 | Connection with configuration | ❌         |
 | Connection from existing PDO  | ✅         |
-| Get underlying PDO            | ✅         |
+| Get underlying PDO            | N/A       |
 
 Hydrahon does not manage a connection at all; it delegates query execution entirely to a user-provided callback
-closure. There is no built-in way to create a connection from params. The PDO is always managed externally, so it is
-inherently available to the caller.
+closure. There is no built-in way to create a connection from configuration. The PDO is always managed externally, so it
+is inherently available to the caller.
 
 ### Supporting `PdoProviderInterface`
 
@@ -177,11 +177,11 @@ construction.
 
 **File:** [illuminate-database.php](illuminate-database.php)
 
-| Scenario                      | Supported        |
-|-------------------------------|------------------|
-| Connection with configuration | ✅ (lazy-connect) |
-| Connection from existing PDO  | ✅                |
-| Get underlying PDO            | ✅                |
+| Scenario                      | Supported                 |
+|-------------------------------|---------------------------|
+| Connection with configuration | ✅ (lazy-connect)          |
+| Connection from existing PDO  | ✅ (requires a workaround) |
+| Get underlying PDO            | ✅                         |
 
 Supports all three scenarios. An existing `\PDO` can be injected via `setPdo()` after the connection is created with
 params (a placeholder config is still required). The underlying PDO is retrievable via `getPdo()`. Laravel's connection
