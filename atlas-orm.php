@@ -12,7 +12,7 @@ if (file_exists($file)) {
     unlink($file);
 }
 
-/********** Connection with params **********/
+/********** Connection with configuration **********/
 $connection = Connection::new('sqlite:' . $file); // This opens a connection
 $orm = Atlas::new($connection);
 

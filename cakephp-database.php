@@ -12,7 +12,7 @@ if (file_exists($file)) {
     unlink($file);
 }
 
-/********** Connection with params (lazy-connect) **********/
+/********** Connection with configuration (lazy-connect) **********/
 $connection = new Connection([
     'driver' => Sqlite::class,
     'database' => $file,

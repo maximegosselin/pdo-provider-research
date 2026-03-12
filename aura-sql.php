@@ -12,7 +12,7 @@ if (file_exists($file)) {
     unlink($file);
 }
 
-/********** Connection with params (lazy-connect) **********/
+/********** Connection with configuration (lazy-connect) **********/
 $extendedPdo = new ExtendedPdo('sqlite:' . $file);
 
 /********** Get underlying PDO **********/

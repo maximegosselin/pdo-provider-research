@@ -16,7 +16,7 @@ if (file_exists($file)) {
     unlink($file);
 }
 
-/********** Connection with params (lazy-connect) **********/
+/********** Connection with configuration (lazy-connect) **********/
 $capsule = new Capsule();
 $capsule->addConnection([
     'driver' => 'sqlite',

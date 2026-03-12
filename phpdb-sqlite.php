@@ -17,7 +17,7 @@ if (file_exists($file)) {
     unlink($file);
 }
 
-/********** Connection with params (lazy-connect) **********/
+/********** Connection with configuration (lazy-connect) **********/
 $connection = new Connection(['dsn' => 'sqlite:' . $file]);
 $driver = new PdoDriver($connection, new Statement(), new Result(), [new SqliteRowCounter()]);
 $adapter = new Adapter($driver, new SqlitePlatform($driver));

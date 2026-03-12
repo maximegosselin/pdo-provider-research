@@ -12,7 +12,7 @@ if (file_exists($file)) {
     unlink($file);
 }
 
-/********** Connection with params (NO lazy-connect) **********/
+/********** Connection with configuration (NO lazy-connect) **********/
 $db = Factory::create('sqlite:' . $file); // This opens a connection
 
 /********** Get underlying PDO **********/

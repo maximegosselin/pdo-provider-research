@@ -11,7 +11,7 @@ if (file_exists($file)) {
     unlink($file);
 }
 
-/********** Connection with params (lazy-connect) **********/
+/********** Connection with configuration (lazy-connect) **********/
 $conn = DriverManager::getConnection([
     'path' => $file,
     'driver' => 'pdo_sqlite',
