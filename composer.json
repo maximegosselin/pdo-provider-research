@@ -1,0 +1,16 @@
+{
+  "require": {
+    "doctrine/dbal": "^4.4",
+    "envms/fluentpdo": "^2.2",
+    "php-db/phpdb": "^0.3.2",
+    "illuminate/database": "^12.54",
+    "cakephp/database": "^5.3",
+    "nette/database": "^3.2",
+    "php-db/phpdb-sqlite": "^0.1.0",
+    "atlas/orm": "^3.1",
+    "atlas/pdo": "^1.2",
+    "aura/sql": "^6.0",
+    "paragonie/easydb": "^3.1",
+    "clancats/hydrahon": "^1.1"
+  }
+}
