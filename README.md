@@ -22,6 +22,7 @@ https://github.com/php-fig/fig-standards/pull/1348
 - [nette/database](#nettedatabase)
 - [paragonie/easydb](#paragonieeasydb)
 - [php-db/phpdb-sqlite](#php-dbphpdb-sqlite)
+- [yiisoft/db](#yiisoftdb)
 
 ---
 
@@ -266,3 +267,31 @@ the layered driver architecture.
 As an implementer, a thin wrapper or extension of `Adapter` could expose `getConnection()` by delegating to
 `getResource()`. As a consumer, `Connection` already accepts a `\PDO` in its constructor; it could transitionally accept
 `\PDO|PdoProviderInterface`, calling `getConnection()` when a provider is passed, a contained change given the layered architecture.
+
+---
+
+## yiisoft/db
+
+**Type:** DBAL
+
+**File:** [yiisoft-db.php](yiisoft-db.php)
+
+| Scenario                      | Supported        |
+|-------------------------------|------------------|
+| Connection with configuration | ✅ (lazy-connect) |
+| Connection from existing PDO  | ❌                |
+| Get underlying PDO            | ✅                |
+
+Yiisoft DB supports lazy-connect via `Connection` + `Driver` + `Dsn`. The underlying `\PDO` is accessible via
+`getActivePDO()`, which opens the connection if not yet established. There is no native API to inject an existing `\PDO`:
+both `Connection` and `Driver` are `final`, making subclassing impossible. The only workaround is a custom driver class
+extending `AbstractPdoDriver` that overrides `createConnection()` to return the pre-existing `\PDO`. Additionally,
+`Connection` requires a `SchemaCache` instance, which itself requires a PSR-16 `CacheInterface` implementation.
+
+### Supporting `PdoProviderInterface`
+
+As an implementer, `getActivePDO()` already exists; delegating `getConnection()` to it would be a one-line addition.
+As a consumer, the main obstacle is that both `Connection` and `Driver` are `final`. Supporting injection of a
+`PdoProviderInterface` would require either removing the `final` modifier from `Connection` (to allow overriding
+`initConnection()`), or adding a dedicated factory method or constructor parameter to `Driver` that accepts an existing
+`\PDO`. Either change would be small but requires upstream agreement.
